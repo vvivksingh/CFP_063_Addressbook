@@ -3,6 +3,7 @@ from address_book_console import AddressBookConsoleService
 ADD_CONTACT = 1
 DISPLAY_CONTACT = 2
 EDIT_CONTACT = 3
+DELETE_CONTACT = 4
 EXIT = 0
 
 if __name__ == "__main__":
@@ -12,9 +13,10 @@ if __name__ == "__main__":
 
     while True:
         print(" 1 Add Contact ",
-              "\n 2 Display Contact",
-              "\n 3 Edit Contact",
-              "\n 0 Exit")
+        "\n 2 Display Contact",
+        "\n 3 Edit Contact",
+        "\n 4 Delete Contact"
+        "\n 0 Exit")
         user_choice = int(input())
 
         if user_choice == ADD_CONTACT:
@@ -25,6 +27,9 @@ if __name__ == "__main__":
 
         elif user_choice == EDIT_CONTACT:
             console_service.edit_contact()
+
+        elif user_choice == DELETE_CONTACT:
+            console_service.delete_contact()
 
         elif user_choice == EXIT:
             print("Thanks for using us ")
