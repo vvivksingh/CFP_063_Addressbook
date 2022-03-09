@@ -43,17 +43,23 @@ class AddressBookConsoleService:
         """
         Method to add contact to local storage
         """
-        contact = self.create_contact()
+        new_contact = self.create_contact()
         print("contact created")
         address_book_name = input("Enter the address book name \n")
         address_book = self.address_books.get(address_book_name)
         # if book does no already exists then creating a new book
         if address_book == None:
-            contact_list = [contact]
+            contact_list = [new_contact]
             self.address_books[address_book_name] = contact_list
+            print("New address book created and contact added to it")
         # if book already exsists then adding contact to existing book
         else:
-            address_book.append(contact)
+            contact = AddressBookConsoleService.search_by_first_name(address_book, new_contact.first_name)
+            if len(contact) == 0:
+                address_book.append(new_contact)
+                print("Contact added sucessfully")
+            else:
+                print("Contact alread exsist")
 
     def display_contact(self):
 
@@ -73,7 +79,7 @@ class AddressBookConsoleService:
         address_book = self.address_books.get(book_name)
         if address_book != None:
             first_name = input("Enter the person name \n")
-            contact_to_edit = [contact for contact in address_book if contact.first_name == first_name]
+            contact_to_edit = AddressBookConsoleService.search_by_first_name(address_book, first_name)
             if len(contact_to_edit) == 0:
                 print("Contact not found")
             else:
@@ -91,12 +97,12 @@ class AddressBookConsoleService:
         address_book = self.address_books.get(book_name)
         if address_book != None:
             first_name = input("Enter the person name \n")
-            contact_to_delete = [contact for contact in address_book if contact.first_name == first_name]
+            contact_to_delete = AddressBookConsoleService.search_by_first_name(address_book, first_name)
             if len(contact_to_delete) == 0:
                 print("Contact not found")
             else:
                 address_book.remove(contact_to_delete[0])
-                print("Contact removed successfully")
+                print("Contact removed sucessfully")
         else:
             print("No such address book")
 
@@ -112,10 +118,35 @@ class AddressBookConsoleService:
     def search_person_by_location(self):
 
         """
-        Method to search person details by their name across the multiple address book
+        Method to search person details by their location across the multiple address book
+        """
+        contacts = self.contact_founder()
+        if len(contacts) == 0:
+            print("No such contact found")
+        else:
+            search_contacts = "\n".join(contact.first_name + " " + contact.last_name for contact in contacts)
+            print(search_contacts)
+
+    def view_person_by_location(self):
+
+        """
+        Method to search person details by their location across the multiple address book
+        """
+        contacts = self.contact_founder()
+        if len(contacts) == 0:
+            print("No such contact found")
+        else:
+            view_contacts = "\n".join(str(contact) for contact in contacts)
+            print(view_contacts)
+
+    def contact_founder(self):
+
+        """
+        Method to search contact by location
         """
         location = input("Enter the city or state of which contacts name you have to find \n")
+        matched_contacts_with_location = []
         for address_book in self.address_books:
-            contacts = [contact.first_name + " " + contact.last_name for contact in self.address_books.get(address_book)
-                        if contact.city == location or contact.state == location]
-            print(contacts)
+            matched_contacts_with_location.extend([contact for contact in self.address_books.get(address_book) if
+                                                   contact.city == location or contact.state == location])
+        return matched_contacts_with_location
