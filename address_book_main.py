@@ -13,6 +13,7 @@ if __name__ == "__main__":
 
     while True:
         print(" 1 Add Contact ",
+
               "\n 2 Display Contact",
               "\n 3 Edit Contact",
               "\n 4 Delete Contact"
