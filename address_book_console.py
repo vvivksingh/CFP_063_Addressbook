@@ -7,7 +7,8 @@ class AddressBookConsoleService:
     def create_contact(self):
 
         """
-        Method to create contact_obj object
+
+        :return: return contact dict
         """
         contact_dict = {
             "first_name": "",
@@ -27,7 +28,7 @@ class AddressBookConsoleService:
 
         """
 
-        :param contact:
+        :param contact: store all inforfamation related to a specific person
         :return:
         """
         contact.first_name = input("Enter first name \n")
@@ -38,13 +39,14 @@ class AddressBookConsoleService:
         contact.zip = input("Enter zip code \n")
         contact.phone_number = input("Enter phone number \n")
         contact.email = input("Enter email address \n")
+
         return contact
 
     def add_contact(self):
 
         """
 
-        :return:
+        :return: add new contact details in the addressbook
         """
         new_contact = self.create_contact()
         print("contact created")
@@ -67,7 +69,8 @@ class AddressBookConsoleService:
     def display_contact(self):
 
         """
-        Method to display all the contact that are present in the local storage
+
+        :return: shows all contact details from addressbook dict
         """
         for address_book in self.address_books:
             contacts = "\n".join(str(contact) for contact in self.address_books.get(address_book))
@@ -76,7 +79,8 @@ class AddressBookConsoleService:
     def edit_contact(self):
 
         """
-        Method to edit existing contact
+
+        :return: edited specified contact details
         """
         book_name = input("Enter the address book name ")
         address_book = self.address_books.get(book_name)
@@ -87,14 +91,15 @@ class AddressBookConsoleService:
                 print("Contact not found")
             else:
                 self.get_Details(contact_to_edit[0])
-                print("Contact Edited Sucessfully")
+                print("Contact Edited Successfully")
         else:
             print("No such address book")
 
     def delete_contact(self):
 
         """
-        Method to delete contact from address book
+
+        :return: delete the specified person contact details
         """
         book_name = input("Enter the address book name ")
         address_book = self.address_books.get(book_name)
@@ -111,17 +116,19 @@ class AddressBookConsoleService:
 
     @staticmethod
     def search_by_first_name(address_book, first_name):
-
         """
-        This method is used to search the contacts that are having first name same as given in
-        function parameter of given address book and returns the list of contact have first name
+
+        :param address_book: book name in which we want to search
+        :param first_name: first name of the person whom we want to search
+        :return: the contact details of specified person
         """
         return [contact for contact in address_book if contact.first_name == first_name]
 
     def search_person_by_location(self):
 
         """
-        Method to search person details by their location across the multiple address book
+
+        :return: the person's detail based on location
         """
         contacts = self.contact_founder()
         if len(contacts) == 0:
@@ -131,9 +138,9 @@ class AddressBookConsoleService:
             print(search_contacts)
 
     def view_person_by_location(self):
-
         """
-        Method to search person details by their location across the multiple address book
+
+        :return: person details by their location across the multiple address book
         """
         contacts = self.contact_founder()
         if len(contacts) == 0:
@@ -145,7 +152,8 @@ class AddressBookConsoleService:
     def contact_founder(self):
 
         """
-        Method to search contact by location
+
+        :return: the list of contact based on location
         """
         location = input("Enter the city or state of which contacts name you have to find \n")
         matched_contacts_with_location = []
