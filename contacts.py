@@ -1,5 +1,9 @@
 class Contact:
     def __init__(self, contact):
+        """
+
+        :param contact: it is a dictionary created based on user input
+        """
         self.first_name = contact.get("first_name")
         self.last_name = contact.get("last_name")
         self.address = contact.get("address")

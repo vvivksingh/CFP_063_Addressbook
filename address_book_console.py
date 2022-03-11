@@ -7,7 +7,7 @@ class AddressBookConsoleService:
     def create_contact(self):
 
         """
-        Method to create contact object
+        Method to create contact_obj object
         """
         contact_dict = {
             "first_name": "",
@@ -19,14 +19,16 @@ class AddressBookConsoleService:
             "number": "",
             "email": ""
         }
-        contact = Contact(contact_dict)
-        contact = self.get_Details(contact)
-        return contact
+        contact_obj = Contact(contact_dict)
+        contact_obj = self.get_Details(contact_obj)
+        return contact_obj
 
     def get_Details(self, contact):
 
         """
-        Method to fetch contact details from user
+
+        :param contact:
+        :return:
         """
         contact.first_name = input("Enter first name \n")
         contact.last_name = input("Enter last name \n")
@@ -41,14 +43,15 @@ class AddressBookConsoleService:
     def add_contact(self):
 
         """
-        Method to add contact to local storage
+
+        :return:
         """
         new_contact = self.create_contact()
         print("contact created")
         address_book_name = input("Enter the address book name \n")
         address_book = self.address_books.get(address_book_name)
         # if book does no already exists then creating a new book
-        if address_book == None:
+        if address_book is None:
             contact_list = [new_contact]
             self.address_books[address_book_name] = contact_list
             print("New address book created and contact added to it")
@@ -57,9 +60,9 @@ class AddressBookConsoleService:
             contact = AddressBookConsoleService.search_by_first_name(address_book, new_contact.first_name)
             if len(contact) == 0:
                 address_book.append(new_contact)
-                print("Contact added sucessfully")
+                print("Contact added successfully")
             else:
-                print("Contact alread exsist")
+                print("Contact already exist")
 
     def display_contact(self):
 
@@ -77,7 +80,7 @@ class AddressBookConsoleService:
         """
         book_name = input("Enter the address book name ")
         address_book = self.address_books.get(book_name)
-        if address_book != None:
+        if address_book is not None:
             first_name = input("Enter the person name \n")
             contact_to_edit = AddressBookConsoleService.search_by_first_name(address_book, first_name)
             if len(contact_to_edit) == 0:
@@ -95,14 +98,14 @@ class AddressBookConsoleService:
         """
         book_name = input("Enter the address book name ")
         address_book = self.address_books.get(book_name)
-        if address_book != None:
+        if address_book is not None:
             first_name = input("Enter the person name \n")
             contact_to_delete = AddressBookConsoleService.search_by_first_name(address_book, first_name)
             if len(contact_to_delete) == 0:
                 print("Contact not found")
             else:
                 address_book.remove(contact_to_delete[0])
-                print("Contact removed sucessfully")
+                print("Contact removed successfully")
         else:
             print("No such address book")
 

@@ -1,49 +1,27 @@
 from address_book_console import AddressBookConsoleService
 
-ADD_CONTACT = 1
-DISPLAY_CONTACT = 2
-EDIT_CONTACT = 3
-DELETE_CONTACT = 4
-SEARCH_BY_CITY_OR_STATE = 5
-VIEW_BY_CITY_OR_STATE = 6
-EXIT = 0
-
 if __name__ == "__main__":
 
-    console_service = AddressBookConsoleService()
     print("Welcome to Address Book Management System")
+    console_service = AddressBookConsoleService()
 
     while True:
         print(" 1 Add Contact "
-        "\n 2 Display Contact"
-        "\n 3 Edit Contact"
-        "\n 4 Delete Contact"
-        "\n 5 Search by City or State"
-        "\n 6 View Person by City or State"
-        "\n 0 Exit")
+              "\n 2 Display Contact"
+              "\n 3 Edit Contact"
+              "\n 4 Delete Contact"
+              "\n 5 Search by City or State"
+              "\n 6 View Person by City or State"
+              "\n 0 Exit")
+
+        input_dict = {
+            1: console_service.add_contact,
+            2: console_service.display_contact,
+            3: console_service.edit_contact,
+            4: console_service.delete_contact,
+            5: console_service.search_person_by_location,
+            6: console_service.view_person_by_location,
+            7: exit
+        }
         user_choice = int(input())
-
-        if user_choice == ADD_CONTACT:
-            console_service.add_contact()
-
-        elif user_choice == DISPLAY_CONTACT:
-            console_service.display_contact()
-
-        elif user_choice == EDIT_CONTACT:
-            console_service.edit_contact()
-
-        elif user_choice == DELETE_CONTACT:
-            console_service.delete_contact()
-
-        elif user_choice == SEARCH_BY_CITY_OR_STATE:
-            console_service.search_person_by_location()
-
-        elif user_choice == VIEW_BY_CITY_OR_STATE:
-            console_service.view_person_by_location()
-
-        elif user_choice == EXIT:
-            print("Thanks for using us ")
-            exit()
-
-        else:
-            print("Invalid choice")
+        input_dict[user_choice]()
